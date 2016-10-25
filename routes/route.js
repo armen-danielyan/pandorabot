@@ -253,7 +253,7 @@ function callSendAPI(messageData) {
         json: messageData
 
     }, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
+        /*if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
 
@@ -263,7 +263,7 @@ function callSendAPI(messageData) {
             console.error("Unable to send message.");
             console.error(response);
             console.error(error);
-        }
+        }*/
     });
 }
 
