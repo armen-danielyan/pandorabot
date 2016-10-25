@@ -152,14 +152,23 @@ var webhooksPost = function(req, res, next) {
 
             // Iterate over each messaging event
             pageEntry.messaging.forEach(function(messagingEvent) {
+                console.log(messagingEvent);
                 if (messagingEvent.optin) {
+
                     receivedAuthentication(messagingEvent);
+
                 } else if (messagingEvent.message) {
+
                     receivedMessage(messagingEvent);
+
                 } else if (messagingEvent.delivery) {
+
                     receivedDeliveryConfirmation(messagingEvent);
+
                 } else if (messagingEvent.postback) {
+
                     receivedPostback(messagingEvent);
+
                 } else {
                     console.log("Webhook received unknown messagingEvent: ", messagingEvent);
                 }
