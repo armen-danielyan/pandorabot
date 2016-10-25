@@ -129,11 +129,18 @@ var notFound404 = function (req, res, next) {
 };
 
 var webhooks = function(req, res, next) {
-    res.render('webhooks', {title: 'WebHooks'});
+    if (req.query['hub.mode'] === 'subscribe' &&
+        req.query['hub.verify_token'] === 'fingerprint_is_my_password') {
+        console.log("Validating webhook");
+        res.status(200).send(req.query['hub.challenge']);
+    } else {
+        console.error("Failed validation. Make sure the validation tokens match.");
+        res.sendStatus(403);
+    }
 };
 
 var webhooksPost = function(req, res, next) {
-    return 274370291;
+    res.render('webhooks', '');
 };
 
 
