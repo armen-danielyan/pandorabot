@@ -159,8 +159,8 @@ var webhooksPost = function(req, res, next) {
                     //receivedAuthentication(messagingEvent);
 
                 } else if (messagingEvent.message) {
-                    console.log('Message');
-                    //receivedMessage(messagingEvent);
+                    //console.log('Message');
+                    receivedMessage(messagingEvent);
 
                 } else if (messagingEvent.delivery) {
                     console.log('Delivery');
@@ -183,6 +183,10 @@ var webhooksPost = function(req, res, next) {
         res.sendStatus(200);
     }
 };
+
+function receivedMessage(msgEvent) {
+    console.log(msgEvent);
+}
 
 
 module.exports.index = index;
