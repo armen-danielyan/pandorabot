@@ -184,7 +184,7 @@ var webhooksPost = function(req, res, next) {
     }
 };
 
-function receivedMessage(msgEvent) {
+function receivedMessage(event) {
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
     var timeOfMessage = event.timestamp;
