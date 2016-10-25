@@ -69,8 +69,9 @@ app.post('/signup', route.signUpPost);
 
 app.get('/signout', route.signOut);
 
-app.use(route.notFound404);
+app.get('/webhooks', route.webhooks);
+app.post('/webhooks', route.webhooksPost);
 
-app.post('/webhooks', route.webhooks);
+app.use(route.notFound404);
 
 module.exports = app;

@@ -42,13 +42,13 @@ var profileSave = function (req, res, next) {
 
             var attrs = {};
             if (req.body.firstname){
-                attrs.first_name = validateEscTrm(req.body.firstname);
+                attrs.first_name = req.body.firstname;
             }
             if (req.body.lastname) {
-                attrs.last_name = validateEscTrm(req.body.lastname);
+                attrs.last_name = req.body.lastname;
             }
             if (req.body.email) {
-                attrs.email = validateEscTrm(req.body.email);
+                attrs.email = req.body.email;
             }
 
             var profileSaveUser = new Model.User({ID: user.id})
@@ -128,13 +128,14 @@ var notFound404 = function (req, res, next) {
     res.render('404', {title: '404 Not Found'});
 };
 
-var validateEscTrm = function(str) {
-    return validator.escape(validator.trim(str));
-};
-
 var webhooks = function(req, res, next) {
+    res.render('webhooks', {title: 'WebHooks'});
+};
+
+var webhooksPost = function(req, res, next) {
 
 };
+
 
 module.exports.index = index;
 
@@ -152,3 +153,4 @@ module.exports.signOut = signOut;
 module.exports.notFound404 = notFound404;
 
 module.exports.webhooks = webhooks;
+module.exports.webhooksPost = webhooksPost;
