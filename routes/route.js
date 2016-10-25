@@ -141,7 +141,7 @@ var webhooks = function(req, res, next) {
 
 var webhooksPost = function(req, res, next) {
     var data = req.body;
-    console.log('Hello World');
+    console.log('Start');
 
     // Make sure this is a page subscription
     if (data.object == 'page') {
@@ -155,19 +155,19 @@ var webhooksPost = function(req, res, next) {
             pageEntry.messaging.forEach(function(messagingEvent) {
 
                 if (messagingEvent.optin) {
-
+                    console.log('Optin');
                     //receivedAuthentication(messagingEvent);
 
                 } else if (messagingEvent.message) {
-
+                    console.log('Message');
                     //receivedMessage(messagingEvent);
 
                 } else if (messagingEvent.delivery) {
-
+                    console.log('Delivery');
                     //receivedDeliveryConfirmation(messagingEvent);
 
                 } else if (messagingEvent.postback) {
-
+                    console.log('Postback');
                     //receivedPostback(messagingEvent);
 
                 } else {
