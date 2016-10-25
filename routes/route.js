@@ -2,6 +2,8 @@ var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var validator = require('validator');
 
+var http = require("http");
+
 var Model = require('../models/model');
 
 var index = function (req, res, next) {
@@ -244,9 +246,9 @@ function sendTextMessage(recipientId, messageText) {
 }
 
 function callSendAPI(messageData) {
-    request({
+    http.request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: PAGE_ACCESS_TOKEN },
+        qs: { access_token: 'EAAZALRceOxIYBAMrEFxa1LiRZAZB9ZBNLm7BqH2cNREkuUoXxZBi0D3oZBT59eVajmSpRCgTbnqa7WgKGe4VCZBTu1VYs2LQCj9RwY8iFQeOxMShHIYrZAWiZCoW4sT8qgyNGfVb4ae5jx0THx5BPuhUQExXyUfenQ3rUAVhOZAcZBGOAZDZD' },
         method: 'POST',
         json: messageData
 
