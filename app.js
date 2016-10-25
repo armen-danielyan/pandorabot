@@ -71,4 +71,6 @@ app.get('/signout', route.signOut);
 
 app.use(route.notFound404);
 
+app.post('/webhooks', route.webhooks);
+
 module.exports = app;

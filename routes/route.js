@@ -132,6 +132,10 @@ var validateEscTrm = function(str) {
     return validator.escape(validator.trim(str));
 };
 
+var webhooks = function(req, res, next) {
+
+};
+
 module.exports.index = index;
 
 module.exports.profile = profile;
@@ -146,3 +150,5 @@ module.exports.signUpPost = signUpPost;
 module.exports.signOut = signOut;
 
 module.exports.notFound404 = notFound404;
+
+module.exports.webhooks = webhooks;
