@@ -34,7 +34,7 @@ passport.use(new LocalStrategy(function (username, password, done) {
 passport.use(new FacebookStrategy({
         clientID: '1801081693509087',
         clientSecret: '862c88ed1b5185a01f52ab21bd476a36',
-        callbackURL: "https://pandora-bot.herokuapp.com/auth/facebook/callback"
+        callbackURL: "https://pandora-bot.herokuapp.com/login/facebook/return"
     },
     function(accessToken, refreshToken, profile, cb) {
         User.findOrCreate({ facebookId: profile.id }, function (err, user) {
