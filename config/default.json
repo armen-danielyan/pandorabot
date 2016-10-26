@@ -7,7 +7,9 @@
     "charset": "UTF8_GENERAL_CI"
   },
   "facebook": {
-
+    "clientID": "1801081693509087",
+    "clientSecret": "862c88ed1b5185a01f52ab21bd476a36",
+    "callbackURL": "https://pandora-bot.herokuapp.com/login/facebook/return"
   },
   "exclude": [
     "node_modules"

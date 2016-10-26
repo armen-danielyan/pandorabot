@@ -1,3 +1,4 @@
+var config = require('config');
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -31,11 +32,7 @@ passport.use(new LocalStrategy(function (username, password, done) {
     });
 }));
 
-passport.use(new FacebookStrategy({
-        clientID: '1801081693509087',
-        clientSecret: '862c88ed1b5185a01f52ab21bd476a36',
-        callbackURL: "https://pandora-bot.herokuapp.com/login/facebook/return"
-    },
+passport.use(new FacebookStrategy(config.get('facebook'),
     function(accessToken, refreshToken, profile, cb) {
         User.findOrCreate({ facebookId: profile.id }, function (err, user) {
             return cb(err, user);
