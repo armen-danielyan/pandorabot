@@ -7,14 +7,15 @@ var ejs = require('ejs');
 var logger = require('morgan');
 var path = require('path');
 var passport = require('passport');
-var localStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 var route = require('./routes/route');
 var Model = require('./models/model');
 
 var app = express();
 
-passport.use(new localStrategy(function (username, password, done) {
+passport.use(new LocalStrategy(function (username, password, done) {
     new Model.User({username: username}).fetch().then(function (data) {
         var user = data;
         if (user === null) {
@@ -29,6 +30,18 @@ passport.use(new localStrategy(function (username, password, done) {
         }
     });
 }));
+
+passport.use(new FacebookStrategy({
+        clientID: '1801081693509087',
+        clientSecret: '862c88ed1b5185a01f52ab21bd476a36',
+        callbackURL: "https://pandora-bot.herokuapp.com/auth/facebook/callback"
+    },
+    function(accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+            return cb(err, user);
+        });
+    }
+));
 
 passport.serializeUser(function (user, done) {
     done(null, user.username);
@@ -71,6 +84,11 @@ app.get('/signout', route.signOut);
 
 app.get('/webhooks', route.webhooks);
 app.post('/webhooks', route.webhooksPost);
+
+app.get('/login/facebook', route.facebookLogin);
+app.get('/login/facebook/return', route.facebookLoginReturn);
+
+app.get('/authorize', route.authorize);
 
 app.use(route.notFound404);
 

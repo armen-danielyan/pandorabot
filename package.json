@@ -8,6 +8,7 @@
     "bcrypt-nodejs": "*",
     "body-parser": "*",
     "bookshelf": "^0.10.2",
+    "config": "^1.21.0",
     "cookie-parser": "*",
     "debug": "^2.2.0",
     "ejs": "*",
@@ -17,6 +18,7 @@
     "morgan": "^1.7.0",
     "mysql": "*",
     "passport": "*",
+    "passport-facebook": "^2.1.1",
     "passport-local": "*",
     "pb-node": "^2.0.1",
     "validator": "^6.1.0"

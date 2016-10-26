@@ -1,12 +1,8 @@
+var config = require('config');
+
 var knex = require('knex')({
-   client: 'mysql',
-   connection: {
-      host     : 'localhost',
-      user     : 'root',
-      password : '',
-      database : 'pandorabot',
-      charset  : 'UTF8_GENERAL_CI'
-   }
+    client: 'mysql',
+    connection: config.get('mysql')
 });
 
 var DB = require('bookshelf')(knex);
