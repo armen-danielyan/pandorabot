@@ -3,13 +3,13 @@
     "host": "localhost",
     "user": "root",
     "password": "",
-    "database": "pandorabot",
+    "database": "carckai",
     "charset": "UTF8_GENERAL_CI"
   },
   "facebook": {
-    "clientID": "1801081693509087",
-    "clientSecret": "862c88ed1b5185a01f52ab21bd476a36",
-    "callbackURL": "https://pandora-bot.herokuapp.com/login/facebook/return"
+    "clientID": "1009882489137184",
+    "clientSecret": "eee7ab33e9a5909898013d585f7858fd",
+    "callbackURL": ""
   },
   "exclude": [
     "node_modules"

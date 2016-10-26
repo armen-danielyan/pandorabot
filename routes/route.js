@@ -130,7 +130,7 @@ var facebookLogin = function (req, res, next) {
 };
 
 var facebookLoginReturn = function (req, res, next) {
-    passport.authenticate('facebook', {failureRedirect: '/signin'}, function (req, res, next) {
+    passport.authenticate('facebook', {failureRedirect: '/signin'}, function (req, res) {
         res.redirect('/');
     })(req, res, next)
 };
