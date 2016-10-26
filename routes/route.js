@@ -130,7 +130,24 @@ var facebookLogin = function (req, res, next) {
 };
 
 var facebookLoginReturn = function (req, res, next) {
+    /*passport.authenticate('facebook', {successRedirect: '/', failureRedirect: '/signin'}, function (err, user, info) {
+        if (err) {
+            return res.render('signin', {title: 'Sign In', errorMessage: err.message});
+        }
+
+        if (!user) {
+            return res.render('signin', {title: 'Sign In', errorMessage: info.message});
+        }
+        return req.logIn(user, function (err) {
+            if (err) {
+                return res.render('signin', {title: 'Sign In', errorMessage: err.message});
+            } else {
+                return res.redirect('/');
+            }
+        });
+    })(req, res, next);*/
     passport.authenticate('facebook', {failureRedirect: '/signin'}, function (req, res) {
+        console.log('loged in');
         res.redirect('/');
     })(req, res, next)
 };

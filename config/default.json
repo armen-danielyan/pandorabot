@@ -7,9 +7,9 @@
     "charset": "UTF8_GENERAL_CI"
   },
   "facebook": {
-    "clientID": "1009882489137184",
-    "clientSecret": "eee7ab33e9a5909898013d585f7858fd",
-    "callbackURL": ""
+    "clientID": "1778310732407138",
+    "clientSecret": "895f4c1a01f36a3a236adc55debe8a77",
+    "callbackURL": "https://b42b9950.ngrok.io"
   },
   "exclude": [
     "node_modules"
