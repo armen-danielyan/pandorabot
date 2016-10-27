@@ -1,10 +1,16 @@
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
+var pandoraBot = require('pb-node');
 var validator = require('validator');
-
 var request = require('request');
+var config = require('config');
 
 var Model = require('../models/model');
+
+var pBot = new pandoraBot(config.get('pandorabot'));
+pBot.list(function(err, res) {
+    if (!err) console.log(res);
+});
 
 var index = function (req, res, next) {
     if (!req.isAuthenticated()) {
@@ -66,7 +72,8 @@ var profileSave = function (req, res, next) {
 };
 
 var signIn = function (req, res, next) {
-    if (req.isAuthenticated()) res.redirect('/');
+    if (req.isAuthenticated())
+        res.redirect('/');
     res.render('signin', {title: 'Sign In'});
 };
 
@@ -75,7 +82,6 @@ var signInPost = function (req, res, next) {
         if (err) {
             return res.render('signin', {title: 'Sign In', errorMessage: err.message});
         }
-
         if (!user) {
             return res.render('signin', {title: 'Sign In', errorMessage: info.message});
         }
@@ -125,16 +131,24 @@ var signOut = function (req, res, next) {
     }
 };
 
-var facebookLogin = function (req, res, next) {
-    passport.authenticate('facebook')(req, res, next);
+var privacy = function (req, res, next) {
+    var user = req.user;
+
+    if (user !== undefined) {
+        user = user.toJSON();
+    }
+    res.render('privacy', {title: 'Privacy', user: user});
 };
 
-var facebookLoginReturn = function (req, res, next) {
-    /*passport.authenticate('facebook', {successRedirect: '/', failureRedirect: '/signin'}, function (err, user, info) {
+var facebookAuth = function (req, res, next) {
+    passport.authenticate('facebook', { scope: ['email'] })(req, res, next);
+};
+
+var facebookAuthReturn = function (req, res, next) {
+    passport.authenticate('facebook', {successRedirect: '/', failureRedirect: '/signin'}, function (err, user, info) {
         if (err) {
             return res.render('signin', {title: 'Sign In', errorMessage: err.message});
         }
-
         if (!user) {
             return res.render('signin', {title: 'Sign In', errorMessage: info.message});
         }
@@ -145,10 +159,6 @@ var facebookLoginReturn = function (req, res, next) {
                 return res.redirect('/');
             }
         });
-    })(req, res, next);*/
-    passport.authenticate('facebook', {failureRedirect: '/signin'}, function (req, res) {
-        console.log('loged in');
-        res.redirect('/');
     })(req, res, next)
 };
 
@@ -809,10 +819,12 @@ module.exports.signUpPost = signUpPost;
 
 module.exports.signOut = signOut;
 
-module.exports.facebookLogin = facebookLogin;
-module.exports.facebookLoginReturn = facebookLoginReturn;
+module.exports.facebookAuth = facebookAuth;
+module.exports.facebookAuthReturn = facebookAuthReturn;
 
 module.exports.notFound404 = notFound404;
+
+module.exports.privacy = privacy;
 
 module.exports.webhooks = webhooks;
 module.exports.webhooksPost = webhooksPost;

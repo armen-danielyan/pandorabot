@@ -3,13 +3,24 @@
     "host": "localhost",
     "user": "root",
     "password": "",
-    "database": "carckai",
+    "database": "crackai",
     "charset": "UTF8_GENERAL_CI"
   },
   "facebook": {
     "clientID": "1778310732407138",
     "clientSecret": "895f4c1a01f36a3a236adc55debe8a77",
-    "callbackURL": "https://b42b9950.ngrok.io"
+    "callbackURL": "https://c490a0b0.ngrok.io/auth/facebook/return",
+    "profileFields": [
+      "id",
+      "emails",
+      "name"
+    ]
+  },
+  "pandorabot": {
+    "url": "https://aiaas.pandorabots.com",
+    "app_id": "**************",
+    "user_key": "************",
+    "botname": "*************"
   },
   "exclude": [
     "node_modules"

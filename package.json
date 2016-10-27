@@ -21,6 +21,7 @@
     "passport-facebook": "^2.1.1",
     "passport-local": "*",
     "pb-node": "^2.0.1",
+    "shortid": "^2.2.6",
     "validator": "^6.1.0"
   }
 }
