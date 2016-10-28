@@ -7,10 +7,10 @@ var config = require('config');
 
 var Model = require('../models/model');
 
-var pBot = new pandoraBot(config.get('pandorabot'));
+/*var pBot = new pandoraBot(config.get('pandorabot'));
 pBot.list(function(err, res) {
     if (!err) console.log(res);
-});
+});*/
 
 var index = function (req, res, next) {
     if (!req.isAuthenticated()) {
@@ -140,8 +140,43 @@ var privacy = function (req, res, next) {
     res.render('privacy', {title: 'Privacy', user: user});
 };
 
+var settings = function (req, res, next) {
+    if (!req.isAuthenticated()) {
+        res.redirect('/signin');
+    } else {
+        var user = req.user;
+
+        if (user !== undefined) {
+            user = user.toJSON();
+        }
+
+
+        var getFBPages = function(next){
+            request({
+                uri: 'https://graph.facebook.com/v2.8/' + user.fb_profileID + '/accounts',
+                qs: {access_token: user.fb_token},
+                method: 'GET'
+            }, function (error, response, body) {
+                var fbPagesObj = [];
+                if (!error && response.statusCode == 200) {
+                    var fbPages = JSON.parse(body).data;
+                    fbPages.forEach(function (item) {
+                        fbPagesObj.push({name: item.name, id: item.id});
+                    });
+                } else {
+                    console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
+                }
+                next(error, fbPagesObj);
+            });
+        };
+        getFBPages(function(err, pages){
+            res.render('settings', {title: 'Settings', user: user, fbpages: pages});
+        });
+    }
+};
+
 var facebookAuth = function (req, res, next) {
-    passport.authenticate('facebook', { scope: ['email'] })(req, res, next);
+    passport.authenticate('facebook', { scope: ['email', 'user_friends', 'pages_messaging', 'manage_pages'] })(req, res, next);
 };
 
 var facebookAuthReturn = function (req, res, next) {
@@ -180,6 +215,7 @@ var webhooks = function(req, res, next) {
 
 var webhooksPost = function(req, res, next) {
     var data = req.body;
+    console.log(data);
 
     // Make sure this is a page subscription
     if (data.object == 'page') {
@@ -778,9 +814,10 @@ function sendAccountLinking(recipientId) {
 }
 
 function callSendAPI(messageData) {
+    console.log(messageData);
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: 'EAAIxarysQQIBAJGZA9w8xkWY8RcXZCnsZBmGZBcGZBgd5VbwV8kZCojkI9m4UZAwFvHzTYNAJyEECG0KZAHXkqxPdtmVFu9LWaTZB2d62a7u0it2ZB3Y2ncLMulVyEYdcKdbSl7in0BuO9H8ijxwedQ8IXp03jWqUEVTT4SrEb1WkSBAZDZD' },
+        qs: { access_token: 'EAAZARXTuBYWIBACpGFtqQ56Ip4fzKf31VHCYpTn5hdZApmf7ZCpy1VypJ6WtGs0XM4z9GZCVWFpjfJQjLKKYUiZAXL4VPX7PNy0y4X0N32ZBInaHcN1NbNwyZARIdcmaNW9oKCtt7QIjGnZAXHRRBZBEiZCTnhxPalvYWzB7t09dhiKAZDZD' },
         method: 'POST',
         json: messageData
 
@@ -825,6 +862,7 @@ module.exports.facebookAuthReturn = facebookAuthReturn;
 module.exports.notFound404 = notFound404;
 
 module.exports.privacy = privacy;
+module.exports.settings = settings;
 
 module.exports.webhooks = webhooks;
 module.exports.webhooksPost = webhooksPost;

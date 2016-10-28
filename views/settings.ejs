@@ -10,9 +10,29 @@
     <div class="col-md-6">
         <h2>Settings</h2>
 
+        <form method="post" action="/settings">
 
+            <% if(typeof(errorMessage) !== 'undefined') {%>
+                <span><%= errorMessage %></span>
+            <% } %>
+
+            <% if(typeof(fbpages) !== 'undefined') {%>
+                <div class="form-group">
+                    <label for="fbpage">Facebook Page:</label>
+                    <select id="fbpage" class="form-control" name="fbpage">
+                        <% for(var i = 0; i < fbpages.length; i++) { %>
+                            <option value="<%= fbpages[i].id %>"><%= fbpages[i].name %></option>
+                        <% } %>
+                    </select>
+                </div>
+            <% } %>
+
+            <input class="btn btn-success" type="submit" name="savesettings" id="savesettings" value="save"/>
+
+        </form>
 
     </div>
 
 </div>
+
 <% include ./partials/footer %>

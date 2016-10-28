@@ -9,7 +9,7 @@
   "facebook": {
     "clientID": "1778310732407138",
     "clientSecret": "895f4c1a01f36a3a236adc55debe8a77",
-    "callbackURL": "https://c490a0b0.ngrok.io/auth/facebook/return",
+    "callbackURL": "https://4a8d4165.ngrok.io/auth/facebook/return",
     "profileFields": [
       "id",
       "emails",
@@ -19,10 +19,7 @@
   "pandorabot": {
     "url": "https://aiaas.pandorabots.com",
     "app_id": "**************",
-    "user_key": "************",
+    "user_key": "693b92dad123c5ada9d9920a6da11823",
     "botname": "*************"
-  },
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }

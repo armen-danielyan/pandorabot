@@ -28,7 +28,6 @@ passport.use(new LocalStrategy(
                 if (!bcrypt.compareSync(password, user.password)) {
                     return done(null, false, {message: 'Invalid username or password'});
                 } else {
-                    console.log(user);
                     return done(null, user);
                 }
             }
@@ -119,6 +118,7 @@ app.get('/auth/facebook/return', route.facebookAuthReturn);
 app.get('/authorize', route.authorize);
 
 app.get('/privacy', route.privacy);
+app.get('/settings', route.settings);
 
 app.use(route.notFound404);
 
